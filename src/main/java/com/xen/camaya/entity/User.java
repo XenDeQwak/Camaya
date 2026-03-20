@@ -1,5 +1,6 @@
 package com.xen.camaya.entity;
 
+import com.xen.camaya.util.Role;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
