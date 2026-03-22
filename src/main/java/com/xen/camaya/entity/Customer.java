@@ -18,5 +18,6 @@ public class Customer extends User {
     @OneToMany(mappedBy = "linkedCustomer")
     private List<Property> linkedProperties;
 
+    @Column(unique = true)
     private String phoneNumber;
 }
