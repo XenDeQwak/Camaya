@@ -30,6 +30,7 @@ public class LoginController {
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest request) {
          String token = loginService.authenticateCustomer(request.email(), request.password());
+         return ResponseEntity.ok(new LoginResponse(token));
     }
 
 }

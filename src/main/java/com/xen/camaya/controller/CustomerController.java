@@ -4,6 +4,8 @@ import com.xen.camaya.model.PropertyModel;
 import com.xen.camaya.service.CustomerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,7 +21,7 @@ public class CustomerController {
 
     @PostMapping("/add-property")
     public ResponseEntity<List<PropertyModel>> addPropertyToCustomer(@RequestBody CustomerPropertyRequest request) {
-        return ResponseEntity.ok(customerService.addPropertyToCustomer(request.customerId(), request.propertyId()));
+        return ResponseEntity.ok(customerService.   addPropertyToCustomer(request.customerId(), request.propertyId()));
     }
 
 }
