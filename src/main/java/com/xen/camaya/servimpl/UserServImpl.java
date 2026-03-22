@@ -20,20 +20,24 @@ public class UserServImpl implements UserService {
 
     @Override
     public UserModel createUser(String email, String username, String password) {
-        User user = new User();
-        user.setEmail(email);
-        user.setName(username);
-        user.setPassword(securityConfig.passwordEncoder().encode(password));
-        user.setRole(Role.CUSTOMER);
-        userRepository.save(user);
-        return userTransform.toModel(user);
+        if (userRepository.findByEmail(email) == null) {
+            User user = new User();
+            user.setEmail(email);
+            user.setName(username);
+            user.setPassword(securityConfig.passwordEncoder().encode(password));
+            user.setRole(Role.CUSTOMER);
+            userRepository.save(user);
+            return userTransform.toModel(user);
+        } else {
+            throw new RuntimeException("User already exists");
+        }
     }
 
     @Override
     public UserModel authenticateUser(String email, String password) {
         User user = userRepository.findByEmail(email);
         try {
-            if (securityConfig.passwordEncoder().matches(password, user.getPassword())) {
+            if (user!= null && securityConfig.passwordEncoder().matches(password, user.getPassword())) {
                 return userTransform.toModel(user);
             }
         } catch (Exception e) {
