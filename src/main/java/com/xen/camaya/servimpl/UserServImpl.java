@@ -34,15 +34,15 @@ public class UserServImpl implements UserService {
     }
 
     @Override
-    public UserModel authenticateUser(String email, String password) {
+    public boolean authenticateUser(String email, String password) {
         User user = userRepository.findByEmail(email);
         try {
             if (user!= null && securityConfig.passwordEncoder().matches(password, user.getPassword())) {
-                return userTransform.toModel(user);
+                return true;
             }
         } catch (Exception e) {
             throw new RuntimeException("Invalid username or password", e);
         }
-        return null;
+        return false;
     }
 }
