@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@PreAuthorize( "hasRole('ROLE_CUSTOMER')")
+@PreAuthorize( "hasRole('CUSTOMER')")
 @Service
 @RequiredArgsConstructor
 public class CustomerServImpl implements CustomerService {
@@ -35,8 +35,8 @@ public class CustomerServImpl implements CustomerService {
             throw new IllegalArgumentException("Property already linked");
         }
 
-        customer.getLinkedProperties().add(property);
-        customerRepository.save(customer);
+        property.setLinkedCustomer(customer);
+        propertyRepository.save(property);
 
         return customer.getLinkedProperties().stream().map(transform::toModel).toList();
     }

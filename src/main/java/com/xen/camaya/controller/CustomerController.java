@@ -21,7 +21,7 @@ public class CustomerController {
 
     @PostMapping("/add-property")
     public ResponseEntity<List<PropertyModel>> addPropertyToCustomer(@RequestBody CustomerPropertyRequest request) {
-        return ResponseEntity.ok(customerService.   addPropertyToCustomer(request.customerId(), request.propertyId()));
+        return ResponseEntity.ok(customerService.addPropertyToCustomer(request.customerId(), request.propertyId()));
     }
 
 }
