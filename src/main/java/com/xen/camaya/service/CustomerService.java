@@ -1,5 +1,6 @@
 package com.xen.camaya.service;
 
+import com.xen.camaya.model.CustomerModel;
 import com.xen.camaya.model.PropertyModel;
 
 import java.util.List;
