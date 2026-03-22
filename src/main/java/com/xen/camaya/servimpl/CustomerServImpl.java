@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@PreAuthorize( "hasRole('CUSTOMER')")
+@PreAuthorize( "hasRole('ROLE_CUSTOMER')")
 @Service
 @RequiredArgsConstructor
 public class CustomerServImpl implements CustomerService {

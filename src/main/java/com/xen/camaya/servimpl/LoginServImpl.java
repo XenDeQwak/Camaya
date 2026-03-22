@@ -1,10 +1,13 @@
 package com.xen.camaya.servimpl;
 
 import com.xen.camaya.entity.Customer;
+import com.xen.camaya.entity.User;
 import com.xen.camaya.model.UserModel;
 import com.xen.camaya.repository.CustomerRepository;
+import com.xen.camaya.repository.UserRepository;
 import com.xen.camaya.service.LoginService;
 import com.xen.camaya.transformimpl.CustomerTransformImpl;
+import com.xen.camaya.util.JwtUtil;
 import com.xen.camaya.util.configs.SecurityConfig;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,6 +19,8 @@ public class LoginServImpl implements LoginService {
     private final SecurityConfig securityConfig;
     private final CustomerRepository customerRepository;
     private final CustomerTransformImpl customerTransform;
+    private final UserRepository userRepository;
+    private final JwtUtil jwtUtil;
 
 
     @Override
@@ -34,8 +39,12 @@ public class LoginServImpl implements LoginService {
     }
 
     @Override
-    public boolean authenticateCustomer(String email, String password) {
-        Customer customer = customerRepository.findCustomerByEmail(email);
-        return customer != null && securityConfig.passwordEncoder().matches(password, customer.getPassword());
+    public String authenticateCustomer(String email, String password) {
+        User user = userRepository.findByEmail(email);
+        if (!securityConfig.passwordEncoder().matches(password, user.getPassword())) {
+            throw new RuntimeException("Invalid username or password");
+        }
+
+        return jwtUtil.generateToken(email, user.getRole());
     }
 }

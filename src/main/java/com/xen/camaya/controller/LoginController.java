@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 public class LoginController {
 
     public record SignUpRequest(String email, String username, String password, String phoneNumber) { }
+    public record LoginResponse(String token) { }
     public record LoginRequest(String email, String password) { }
 
     private final LoginService loginService;
@@ -27,8 +28,8 @@ public class LoginController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Boolean> login(@RequestBody LoginRequest request) {
-        return ResponseEntity.ok(loginService.authenticateCustomer(request.email(), request.password()));
+    public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest request) {
+         String token = loginService.authenticateCustomer(request.email(), request.password());
     }
 
 }
