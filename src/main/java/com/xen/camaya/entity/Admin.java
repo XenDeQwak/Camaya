@@ -6,6 +6,7 @@ import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -14,5 +15,5 @@ import java.util.List;
 @Table(name = "admins")
 public class Admin extends User {
     @OneToMany(mappedBy = "linkedAdmin")
-    private List<Customer> linkedCustomers;
+    private List<Customer> linkedCustomers = new ArrayList<>();
 }
